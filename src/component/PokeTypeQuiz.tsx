@@ -6,6 +6,7 @@ import makeQuestions from '../logic/makeQuestions';
 import quizLogic, { State } from '../logic/quizLogic';
 import Answer from "./Answer";
 import Question from "./Question";
+import Result from './Result';
 
 export default function PokeTypeQuiz() {
 
@@ -28,13 +29,20 @@ export default function PokeTypeQuiz() {
     }
 
     return (
-    <Box sx = {{width:500, height: 800, mx:"auto"}}>
-        <Card>
-            <CardContent>
-                <Question state={state}/>
-                <Answer buttonHandler={buttonHandler} state={state} />
-            </CardContent>
-        </Card>
+    <Box sx = {{height: "auto", mx:"auto"}}>
+        { !state.isResult &&
+            <Box>
+                <Card sx = {{maxWidth:600, minHeight: 430, mx:"auto"}}>
+                    <CardContent>
+                        <Question state={state}/>
+                        <Answer buttonHandler={buttonHandler} state={state} />
+                    </CardContent>
+                </Card>
+            </Box>
+        }
+        { state.isResult &&
+            <Result buttonHandler={buttonHandler} state={state} />
+        }
     </Box>
     );
 }
