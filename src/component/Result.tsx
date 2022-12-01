@@ -41,7 +41,7 @@ export default function Result(props: {
             <div>
                 <p>結果一覧</p>
                 <TableContainer>
-                    <Table>
+                    <Table size="small">
                         <TableHead>
                             <TableCell>問題No.</TableCell>
                             <TableCell>防御タイプ1</TableCell>
