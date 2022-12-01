@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import React from 'react';
 import { State } from '../logic/quizLogic';
-import pokeType from '../logic/pokeType';
+import PokeTypeBox from './PokeTypeBox';
 
 export default function Question(props: {
     state: State;
@@ -11,26 +11,18 @@ export default function Question(props: {
     const state = props.state
     const question = state.questions[state.nowQuizNum - 1]
     const correctRate = state.answers.length === 0 ? 0 : Math.round((state.numCorrect/state.answers.length)*100)
-    const pokeTypes = pokeType()
     const defType = () => {
         let defTypeIcon;
-        const def1Color = question.defenceType1.color
         if (question.defenceType2) {
-            const def2Color = question.defenceType2.color
-            defTypeIcon = 
+            defTypeIcon = (
                 <Box sx={{display: 'flex'}}>
-                    <Box sx={{ width:88, fontSize:16, backgroundColor:def1Color, borderRadius:1 }}>
-                        {question.defenceType1.name}
-                    </Box>
-                    <Box sx={{ width:10, mx:0.5}}>
-                        /
-                    </Box>
-                    <Box sx={{ width:88, fontSize:16, backgroundColor:def2Color, borderRadius:1 }}>
-                        {question.defenceType2.name}
-                    </Box>
+                    <PokeTypeBox pokeType={question.defenceType1} />
+                    <Box sx={{ width:10, mx:0.5}}>/</Box>
+                    <PokeTypeBox pokeType={question.defenceType2} />
                 </Box>
+            )
         } else {
-            defTypeIcon = <Box sx={{ width:88, fontSize:16, backgroundColor:def1Color, borderRadius:1 }}>{question.defenceType1.name}</Box>
+            defTypeIcon = <PokeTypeBox pokeType={question.defenceType1} />
         }
         return (
             <Box sx={{display: 'flex', m:1}}>
@@ -42,12 +34,9 @@ export default function Question(props: {
         )
     }
     const atkType = () => {
-        const atkColor = question.attackType.color
         return (
             <Box sx={{display: 'flex', m:1}}>
-                <Box sx={{ width:88, fontSize:16, backgroundColor:atkColor, borderRadius:1 }}>
-                    {question.attackType.name}
-                </Box>
+                <PokeTypeBox pokeType={question.attackType} />
                 <Box>
                     タイプの攻撃技は？
                 </Box>

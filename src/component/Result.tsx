@@ -1,7 +1,7 @@
 import React from 'react'; 
 import Button from "@mui/material/Button";
 import { State } from "../logic/quizLogic";
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 
 export default function Result(props: {
     buttonHandler: (code: string) => void;
@@ -13,8 +13,10 @@ export default function Result(props: {
         atk:  string,
         correctAnswer: number,
         yourAnswer: number,
+        rightOrWrong: string,
+        rowColor: string
     ) {
-        return {def1, def2, atk, correctAnswer, yourAnswer};
+        return {def1, def2, atk, correctAnswer, yourAnswer, rightOrWrong, rowColor};
     }
     function createRows(
         state: State,
@@ -23,46 +25,58 @@ export default function Result(props: {
         if (state.isResult) {
             state.questions.map((questionSet, index) => {
                 const def2 = questionSet.defenceType2 ? questionSet.defenceType2.name : ''
+                const isCorrect = questionSet.correctAnswer === state.answers[index]
+                const rightOrWrong = isCorrect ? '○' : '×'
+                const rowColor = isCorrect ? '#98fb98' : '#ffc0cb'
                 rows.push(createData(
                     questionSet.defenceType1.name,
                     def2,
                     questionSet.attackType.name,
                     questionSet.correctAnswer,
-                    state.answers[index]
+                    state.answers[index],
+                    rightOrWrong,
+                    rowColor
                 ))
             })
         }
-        return rows;
+        console.log(rows)
+        return (
+            rows.map((row, index) => (
+                <TableRow key={index + 1} sx={{backgroundColor:row.rowColor}}>
+                    <TableCell sx={{textAlign:'center'}}>{index + 1}</TableCell>
+                    <TableCell sx={{textAlign:'center'}}>{row.def1}</TableCell>
+                    <TableCell sx={{textAlign:'center'}}>{row.def2}</TableCell>
+                    <TableCell sx={{textAlign:'center'}}>{row.atk}</TableCell>
+                    <TableCell sx={{textAlign:'center'}}>{row.correctAnswer}倍</TableCell>
+                    <TableCell sx={{textAlign:'center'}}>{row.yourAnswer}倍</TableCell>
+                    <TableCell sx={{textAlign:'center'}}>{row.rightOrWrong}</TableCell>
+                </TableRow>
+            ))
+        )
     }
-    const rows = createRows(props.state);
+    const state = props.state
+    const correctRate =  state.answers.length === 0 ? 0 : Math.round(( state.numCorrect/ state.answers.length)*100)
     return (
         <div>
-            { props.state.isResult &&
+            { state.isResult &&
             <div>
-                <p>結果一覧</p>
+                <Typography sx={{ fontSize:26, mt:1, mb:2}} >結果</Typography>
+                <Typography sx={{ fontSize: 20, mt:1, mb:2}} >
+                    {state.totalQuizNum}問中 {state.numCorrect}問正解！ (正答率:{correctRate}%)
+                </Typography>
                 <TableContainer>
-                    <Table size="small">
-                        <TableHead>
-                            <TableCell>問題No.</TableCell>
-                            <TableCell>防御タイプ1</TableCell>
-                            <TableCell>防御タイプ2</TableCell>
-                            <TableCell>攻撃タイプ</TableCell>
-                            <TableCell>正答</TableCell>
-                            <TableCell>あなたの答え</TableCell>
+                    <Table size="small" sx={{width:800, mx:"auto", mb:2}}>
+                        <TableHead sx={{backgroundColor:'#eeeeee'}}>
+                            <TableCell sx={{textAlign:'center'}}>問題No.</TableCell>
+                            <TableCell sx={{textAlign:'center'}}>防御タイプ1</TableCell>
+                            <TableCell sx={{textAlign:'center'}}>防御タイプ2</TableCell>
+                            <TableCell sx={{textAlign:'center'}}>攻撃タイプ</TableCell>
+                            <TableCell sx={{textAlign:'center'}}>正答</TableCell>
+                            <TableCell sx={{textAlign:'center'}}>あなたの答え</TableCell>
+                            <TableCell sx={{textAlign:'center'}}>正誤</TableCell>
                         </TableHead>
                         <TableBody>
-                            {rows.map((row, index) => (
-                                <TableRow
-                                key={index + 1}
-                                >
-                                    <TableCell>{index + 1}</TableCell>
-                                    <TableCell>{row.def1}</TableCell>
-                                    <TableCell>{row.def2}</TableCell>
-                                    <TableCell>{row.atk}</TableCell>
-                                    <TableCell>{row.correctAnswer}倍</TableCell>
-                                    <TableCell>{row.yourAnswer}倍</TableCell>
-                                </TableRow>
-                            ))}
+                            {createRows(state)}
                         </TableBody>
                     </Table>
                 </TableContainer>

@@ -31,17 +31,17 @@ export default function PokeTypeQuiz() {
     return (
     <Box sx = {{height: "auto", mx:"auto"}}>
         { !state.isResult &&
-            <Box>
-                <Card sx = {{maxWidth:600, minHeight: 430, mx:"auto"}}>
-                    <CardContent>
-                        <Question state={state}/>
-                        <Answer buttonHandler={buttonHandler} state={state} />
-                    </CardContent>
-                </Card>
-            </Box>
+            <Card sx = {{maxWidth:600, minHeight: 430, mx:"auto"}}>
+                <CardContent>
+                    <Question state={state}/>
+                    <Answer buttonHandler={buttonHandler} state={state} />
+                </CardContent>
+            </Card>
         }
         { state.isResult &&
-            <Result buttonHandler={buttonHandler} state={state} />
+            <Card sx = {{maxWidth:850, minHeight: 430, mx:"auto"}}>
+                <Result buttonHandler={buttonHandler} state={state} />
+            </Card>
         }
     </Box>
     );
