@@ -16,13 +16,13 @@ export default function makeQuestions(totalQuizNum: number): QuestionSet[] {
         // 4.倍率を計算する (defとatkを引数に、倍率が戻り値となる関数を呼ぶ)
         const correctAnswer = getDamageRate(defenceType1, defenceType2, attackType)
         // 5.def1とdef2が同じならdef2をnullにする
-        const def2Name = (defenceType1.id === defenceType2.id) ? null : defenceType2.name
+        const def2Name = (defenceType1.id === defenceType2.id) ? null : defenceType2
 
         // 6.上記4,5の倍率を掛け算し、correctAnswerとする
         questionSet.push({
-            defenceType1: defenceType1.name,
+            defenceType1: defenceType1,
             defenceType2: def2Name ,
-            attackType: attackType.name,
+            attackType: attackType,
             correctAnswer: correctAnswer
         });
     }

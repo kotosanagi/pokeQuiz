@@ -22,11 +22,11 @@ export default function Result(props: {
         let rows = Array(0);
         if (state.isResult) {
             state.questions.map((questionSet, index) => {
-                const def2 = questionSet.defenceType2 ? questionSet.defenceType2 : ''
+                const def2 = questionSet.defenceType2 ? questionSet.defenceType2.name : ''
                 rows.push(createData(
-                    questionSet.defenceType1,
+                    questionSet.defenceType1.name,
                     def2,
-                    questionSet.attackType,
+                    questionSet.attackType.name,
                     questionSet.correctAnswer,
                     state.answers[index]
                 ))

@@ -1,4 +1,5 @@
 import makeQuestions from "./makeQuestions";
+import { pokeTypeInterface } from "./pokeType";
 
 export interface State {
     nowQuizNum: number;
@@ -11,9 +12,9 @@ export interface State {
 }
 
 export interface QuestionSet {
-    defenceType1: string;
-    defenceType2?: string | null;
-    attackType: string;
+    defenceType1: pokeTypeInterface;
+    defenceType2?: pokeTypeInterface | null;
+    attackType: pokeTypeInterface;
     correctAnswer: number;
 }
 
