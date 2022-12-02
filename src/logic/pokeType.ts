@@ -1,7 +1,7 @@
 
 export default function pokeType(): pokeTypeInterface[] {
     return [
-        {id:1,  name:'ノーマル', color:'#cccccc'},
+        {id:1,  name:'ノーマル', color:'#dddddd'},
         {id:2,  name:'ほのお',   color:'#ff4500'},
         {id:3,  name:'みず',    color:'#aaddff'},
         {id:4,  name:'でんき',  color:'#f8f800'},
@@ -14,10 +14,10 @@ export default function pokeType(): pokeTypeInterface[] {
         {id:11, name:'エスパー', color:'#ffc0cb'},
         {id:12, name:'むし',    color:'#00ff7f'},
         {id:13, name:'いわ',    color:'#f5deb3'},
-        {id:14, name:'ゴースト', color:'#8050aa'},
+        {id:14, name:'ゴースト', color:'#9080aa'},
         {id:15, name:'ドラゴン', color:'#7788ee'},
-        {id:16, name:'あく',     color:'#5588bb'},
-        {id:17, name:'はがね',   color:'#bbbbbb'},
+        {id:16, name:'あく',     color:'#6699bf'},
+        {id:17, name:'はがね',   color:'#999999'},
         {id:18, name:'フェアリー', color:'#ee82ee'}]
 }
 

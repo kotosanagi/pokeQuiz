@@ -4,7 +4,9 @@ import CardContent from '@mui/material/CardContent';
 import React, { useState } from 'react';
 import makeQuestions from '../logic/makeQuestions';
 import quizLogic, { State } from '../logic/quizLogic';
+import { useWindowDimensions } from '../logic/useWindowDimensions';
 import Answer from "./Answer";
+import Header from './Header';
 import Question from "./Question";
 import Result from './Result';
 
@@ -27,22 +29,29 @@ export default function PokeTypeQuiz() {
         const nextState = quizLogic(code, state);
         setState(nextState);
     }
+    const { width, height } = useWindowDimensions();
+    const headerHeight = 40;
 
     return (
-    <Box sx = {{height: "auto", mx:"auto"}}>
-        { !state.isResult &&
-            <Card sx = {{maxWidth:600, minHeight: 430, mx:"auto"}}>
-                <CardContent>
-                    <Question state={state}/>
-                    <Answer buttonHandler={buttonHandler} state={state} />
-                </CardContent>
-            </Card>
-        }
-        { state.isResult &&
-            <Card sx = {{maxWidth:850, minHeight: 430, mx:"auto"}}>
-                <Result buttonHandler={buttonHandler} state={state} />
-            </Card>
-        }
-    </Box>
+        <Box sx = {{height:height,width:width, mx:"auto"}}>
+            <Box sx = {{mx:"auto"}}>
+                <Header headerHeight={headerHeight} />
+            </Box>
+            <Box sx = {{height: height-headerHeight, width:width, mx:"auto", display:'flex', justifyContent:'center', alignItems:'center'}}>
+                { !state.isResult &&
+                    <Card sx = {{width:600, minHeight: 430, mx:"auto"}}>
+                        <CardContent>
+                            <Question state={state}/>
+                            <Answer buttonHandler={buttonHandler} state={state} />
+                        </CardContent>
+                    </Card>
+                }
+                { state.isResult &&
+                    <Card sx = {{maxWidth:850, minHeight: 430, mx:"auto"}}>
+                        <Result buttonHandler={buttonHandler} state={state} />
+                    </Card>
+                }
+            </Box>
+        </Box>
     );
 }

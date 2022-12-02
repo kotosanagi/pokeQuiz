@@ -27,7 +27,7 @@ export default function Result(props: {
                 const def2 = questionSet.defenceType2 ? questionSet.defenceType2.name : ''
                 const isCorrect = questionSet.correctAnswer === state.answers[index]
                 const rightOrWrong = isCorrect ? '○' : '×'
-                const rowColor = isCorrect ? '#98fb98' : '#ffc0cb'
+                const rowColor = isCorrect ? '#98fb98' : '#eaeaea'
                 rows.push(createData(
                     questionSet.defenceType1.name,
                     def2,
@@ -66,7 +66,7 @@ export default function Result(props: {
                 </Typography>
                 <TableContainer>
                     <Table size="small" sx={{width:800, mx:"auto", mb:2}}>
-                        <TableHead sx={{backgroundColor:'#eeeeee'}}>
+                        <TableHead sx={{backgroundColor:'#cccccc'}}>
                             <TableCell sx={{textAlign:'center'}}>問題No.</TableCell>
                             <TableCell sx={{textAlign:'center'}}>防御タイプ1</TableCell>
                             <TableCell sx={{textAlign:'center'}}>防御タイプ2</TableCell>
