@@ -33,7 +33,7 @@ export default function PokeTypeQuiz() {
     const headerHeight = 40;
 
     return (
-        <Box sx = {{height:height,width:width, mx:"auto"}}>
+        <Box sx = {{height:height,width:width, mx:"auto", backgroundColor:'#fafafa'}}>
             <Box sx = {{mx:"auto"}}>
                 <Header headerHeight={headerHeight} />
             </Box>
